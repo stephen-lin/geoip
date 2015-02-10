@@ -149,7 +149,7 @@ class GeoIp {
 	 */
 	function do_shortcode_country( $atts ) {
 		if( isset( $this->geos[ 'country' ] ) ) {
-			echo $this->geos[ 'country' ];
+			echo $this->country();
 		}
 	}
 
@@ -161,7 +161,7 @@ class GeoIp {
 	 */
 	function do_shortcode_region( $atts ) {
 		if( isset( $this->geos[ 'region' ] ) ) {
-			echo $this->geos[ 'region' ];
+			echo $this->region();
 		}
 	}
 
@@ -173,7 +173,7 @@ class GeoIp {
 	 */
 	function do_shortcode_city( $atts ) {
 		if( isset( $this->geos[ 'city' ] ) ) {
-			echo $this->geos[ 'city' ];
+			echo $this->city();
 		}
 	}
 
