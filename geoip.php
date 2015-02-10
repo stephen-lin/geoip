@@ -3,7 +3,7 @@
 Plugin Name: WP Engine GeoIP
 Version: 1.0.0
 Description: Create a personalized user experienced based on location.
-Author: Steven Word
+Author: WP Engine
 Author URI: http://wpengine.com
 Plugin URI: http://www.wpengine.com/wp-geo-ip/
 Text Domain: wp-geo-ip
