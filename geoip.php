@@ -1,10 +1,16 @@
 <?php
 /*
- * Plugin Name: WP GeoIp
- * Version: 0.5
- * Author: WP Engine
- *
- * Examples use of how to add geoip information to post content:
+Plugin Name: WP Engine GeoIP
+Version: 1.0.0
+Description: Create a personalized user experienced based on location.
+Author: Steven Word
+Author URI: http://wpengine.com
+Plugin URI: http://www.wpengine.com/wp-geo-ip/
+Text Domain: wp-geo-ip
+Domain Path: /languages
+*/
+
+/* Examples use of how to add geoip information to post content:
 
 function geoip_append_content( $content ) {
 	$geo = WPEngine\GeoIp::instance();
@@ -69,6 +75,7 @@ class GeoIp {
 	}
 
 	/**
+	 * Region
 	 * @return mixed
 	 */
 	public function region() {
