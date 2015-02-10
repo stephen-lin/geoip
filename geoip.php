@@ -1,8 +1,8 @@
 <?php
 /*
- * Plugin Name: WP Engine Geo
- * Version: 0.4
- * Author: WP Engine Labs
+ * Plugin Name: WP GeoIp
+ * Version: 0.5
+ * Author: WP Engine
  *
  * Examples use of how to add geoip information to post content:
 
@@ -65,21 +65,21 @@ class GeoIp {
 	 * @return mixed
 	 */
 	public function country() {
-		return $this->geos['countrycode'];
+		return $this->geos[ 'countrycode' ];
 	}
 
 	/**
 	 * @return mixed
 	 */
 	public function region() {
-		return $this->geos['region'];
+		return $this->geos[ 'region' ];
 	}
 
 	/**
 	 * @return mixed
 	 */
 	public function city() {
-		return $this->geos['city'];
+		return $this->geos[ 'city' ];
 	}
 
 }
