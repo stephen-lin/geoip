@@ -33,8 +33,7 @@ WP Engine GeoIP integrates with the variables on your WP Engine site to display 
 
 = ** Please Note =
 
-This plugin will only function on your WP Engine account. This will not function outside of the WP
-Engine environment.
+This plugin will only function on your WP Engine account. This will not function outside of the WP Engine environment.
 
 == Installation ==
 
