@@ -34,10 +34,17 @@ class GeoIp {
 	// The geographical data loaded from the environment
 	public $geos;
 
+	// Dependency management
+	private $plugin_dependencies   = array();
+	private $depenencies_present   = false;
+	private $admin_notices         = array();
+
 	/* Shortcode */
 	const SHORTCODE_COUNTRY = 'geoip-country';
 	const SHORTCODE_REGION  = 'geoip-region';
 	const SHORTCODE_CITY    = 'geoip-city';
+
+	const TEXT_DOMAIN       = 'wpe-geo-ip';
 
 	/**
 	 * [init description]
@@ -63,6 +70,15 @@ class GeoIp {
 	 */
 	public function setup() {
 		$this->geos = $this->get_actuals();
+
+		// Check for dependencies
+		add_action( 'admin_init', array( $this, 'action_admin_init_check_plugin_dependencies' ), 9999 ); // check late
+
+		// If required plugins are not present, throw an error notice and bail
+		if( ! $this->depenencies_present ) {
+			add_action( 'admin_notices', array( $this, 'action_admin_notices' ) );
+			return;
+		}
 
 		// Initialize
 		add_action( 'init', array( $this, 'action_init_register_shortcodes' ) );
@@ -176,6 +192,42 @@ class GeoIp {
 			echo $this->city();
 		}
 	}
+
+
+	/**
+	 * [action_admin_init_check_plugin_dependencies description]
+	 * @return [type] [description]
+	 */
+	public function action_admin_init_check_plugin_dependencies() {
+		if( 1==1 ) {
+			$this->admin_notices[] = __( 'Please note - this plugin will only function on your <a href="http://wpengine.com/plans/?utm_source=' . self::TEXT_DOMAIN . '">WP Engine account</a>. This will not function outside of the WP Engine environment. Plugin <b>deactivated.</b>', self::TEXT_DOMAIN );
+		}
+
+	}
+
+	/**
+	 * [action_admin_notices description]
+	 * @return [type] [description]
+	 */
+	public function action_admin_notices() {
+		if( 0 < count( $this->admin_notices ) ) {
+			// Hide the activation message
+			echo '<style>.wrap .updated{display:none;}</style>';
+
+			// Display the errors
+			echo '<div class="error">';
+			foreach( $this->admin_notices as $notice ) {
+				echo "<p>$notice</p>";
+			}
+			echo '</div>';
+
+			// Disable this plugin
+			deactivate_plugins( plugin_basename( __FILE__ ) );
+		}
+	}
+
+
+
 
 }
 
