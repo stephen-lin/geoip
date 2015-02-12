@@ -11,7 +11,7 @@ Create a personalized user experienced based on location.
 
 == Description ==
 
-WP Engine GeoIP integrates with the variables on your WP Engine site to display content catered to the visitor’s IP address. With the ability to access variables from as broad as country to as specific as latitude and longitude, your website can now display geographically relevant content.
+WP Engine GeoIP integrates with the variables on your WP Engine site to display content catered to the visitor’s location. With the ability to access variables from as broad as country to as specific as latitude and longitude, your website can now display geographically relevant content.
 
 = Geo-Marketing =
 
@@ -19,13 +19,13 @@ WP Engine GeoIP integrates with the variables on your WP Engine site to display 
 
 = Localization =
 
-* Redirect incoming traffic to content in the local language or currency
-* Businesses with local branches can direct customers to a relevant physical location or local microsite
+* Redirect incoming traffic to content in the local language or currency.
+* Businesses with local branches can direct customers to a relevant physical location or local microsite.
 
 = Ecommerce =
 
-* Filter out merchandise or services that are not available in a certain locale
-* Display country-specific shipping, tax, or sales information
+* Filter out merchandise or services that are not available in a certain locale.
+* Display country-specific shipping, tax, or sales information.
 
 = Legal Requirements =
 
