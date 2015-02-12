@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Engine GeoIP
-Version: 0.5.1
+Version: 0.6
 Description: Create a personalized user experienced based on location.
 Author: WP Engine
 Author URI: http://wpengine.com
@@ -249,7 +249,7 @@ class GeoIp {
 	/**
 	 * Output the current postal code
 	 *
-	 * @since  0.5.1
+	 * @since  0.6
 	 * @return string Postal Code
 	 */
 	function do_shortcode_postal_code( $atts ) {
@@ -262,7 +262,7 @@ class GeoIp {
 	/**
 	 * Output the current latitude
 	 *
-	 * @since  0.5.1
+	 * @since  0.6
 	 * @return string Latitude
 	 */
 	function do_shortcode_latitude( $atts ) {
@@ -275,7 +275,7 @@ class GeoIp {
 	/**
 	 * Output the current longitude
 	 *
-	 * @since  0.5.1
+	 * @since  0.6
 	 * @return string Longitude
 	 */
 	function do_shortcode_longitude( $atts ) {
