@@ -1,6 +1,6 @@
 === WP Engine GeoIP ===
 Contributors: wpengine, markkelnar, stevenkword, stephenlin
-Tags: geo, geolocation, geoip,localization, wordpressengine, wpe, wpengine, wpenginegeoip
+Tags: wpe, wpengine, geoip, localization, geolocation
 Requires at least: 3.0.1
 Tested up to: 4.1
 Stable tag: 0.6.0
