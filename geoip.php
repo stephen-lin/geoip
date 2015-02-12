@@ -250,7 +250,7 @@ class GeoIp {
 	 * Output the current postal code
 	 *
 	 * @since  0.5.1
-	 * @return string postal code
+	 * @return string Postal Code
 	 */
 	function do_shortcode_postal_code( $atts ) {
 		if( isset( $this->geos[ 'postalcode' ] ) ) {
@@ -263,7 +263,7 @@ class GeoIp {
 	 * Output the current latitude
 	 *
 	 * @since  0.5.1
-	 * @return string latitude
+	 * @return string Latitude
 	 */
 	function do_shortcode_latitude( $atts ) {
 		if( isset( $this->geos[ 'latitude' ] ) ) {
@@ -276,7 +276,7 @@ class GeoIp {
 	 * Output the current longitude
 	 *
 	 * @since  0.5.1
-	 * @return string longitude
+	 * @return string Longitude
 	 */
 	function do_shortcode_longitude( $atts ) {
 		if( isset( $this->geos[ 'longitude' ] ) ) {
