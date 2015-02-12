@@ -48,8 +48,6 @@ This is a required Section
 
 This is a required Section
 
-== Upgrade Notice ==
-
 == Changelog ==
 
 = 0.6 =
