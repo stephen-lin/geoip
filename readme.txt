@@ -46,17 +46,21 @@ This plugin will only function on your [WP Engine](http://wpengine.com/plans/?ut
 
 No, this will only work within a WP Engine environment.
 
+
 2) Are there any other restrictions to using this plugin? 
 
 Yes, the GeoIP variables on the server are available to Business, Premium and Enterprise customers. Personal and Professional customers, please contact the Support Team if you are interested in GeoIP. 
+
 
 3) What variables do I have access to? 
 
 Country, state, city, zip, latitude, longitude.
 
+
 4) How do I sign up for a WP Engine Account?: 
 
 That’s easy! [Click here](http://wpengine.com/plans/?utm_source=wpe-geo-ip).
+
 
 5) I installed the plugin and code and it isn’t working. 
 
