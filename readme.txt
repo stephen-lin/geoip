@@ -48,7 +48,7 @@ No, this will only work within a WP Engine environment.
 
 2) Are there any other restrictions to using this plugin? 
 
-Yes, the GeoIP variables on the server are available to Business, Premium and Enterprise customers. Personal and Professional customers, please contact the Support Team if you are interested in GeoIP. 
+Yes, the GeoIP variables on the server are available to Business, Premium and Enterprise customers. Personal and Professional customers, please contact the [Support Team](https://my.wpengine.com/support#general-issue) if you are interested in GeoIP. 
 
 3) What variables do I have access to? 
 
