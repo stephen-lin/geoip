@@ -52,7 +52,7 @@ This is a required Section
 
 == Changelog ==
 
-= 0.5.1 =
+= 0.6 =
 - Add shortcodes for postal code, latitude and longitude.
 
 = 0.5 =
