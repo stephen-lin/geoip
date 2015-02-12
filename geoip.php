@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Engine GeoIP
-Version: 1.0.0
+Version: 0.5.1
 Description: Create a personalized user experienced based on location.
 Author: WP Engine
 Author URI: http://wpengine.com
@@ -39,24 +39,38 @@ class GeoIp {
 	private $depenencies_present   = false;
 	private $admin_notices         = array();
 
-	/* Shortcode */
-	const SHORTCODE_COUNTRY = 'geoip-country';
-	const SHORTCODE_REGION  = 'geoip-region';
-	const SHORTCODE_CITY    = 'geoip-city';
+	// Shortcodes
+	const SHORTCODE_COUNTRY      = 'geoip-country';
+	const SHORTCODE_REGION       = 'geoip-region';
+	const SHORTCODE_CITY         = 'geoip-city';
+	const SHORTCODE_POSTAL_CODE  = 'geoip-postalcode';
+	const SHORTCODE_LATITUDE     = 'geoip-latitude';
+	const SHORTCODE_LONGITUDE    = 'geoip-longitude';
+	const SHORTCODE_LOCATION     = 'geoip-location';
 
+	// Text Domain
 	const TEXT_DOMAIN       = 'wpe-geo-ip';
 
 	/**
-	 * [init description]
-	 * @return [type] [description]
+	 * Initialize hooks and setup environment variables
+	 *
+	 * @since 0.1.0
 	 */
 	public static function init() {
+
+		// Initialize
 		add_action( 'init', array( self::instance(), 'setup' ) );
+		add_action( 'init', array( self::instance(), 'action_init_register_shortcodes' ) );
+
+		// Check for dependencies
+		add_action( 'admin_init', array( self::instance(), 'action_admin_init_check_plugin_dependencies' ), 9999 ); // check late
+
 	}
 
 	/**
-	 * [instance description]
-	 * @return [type] [description]
+	 * Register singleton
+	 *
+	 * @since 0.1.0
 	 */
 	public static function instance() {
 		// create a new object if it doesn't exist.
@@ -65,30 +79,19 @@ class GeoIp {
 	}
 
 	/**
-	 * [setup description]
-	 * @return [type] [description]
+	 * Setup environment variables
+	 *
+	 * @since 0.1.0
 	 */
 	public function setup() {
 		$this->geos = $this->get_actuals();
-
-		// Check for dependencies
-		add_action( 'admin_init', array( $this, 'action_admin_init_check_plugin_dependencies' ), 9999 ); // check late
-
-		// If required plugins are not present, throw an error notice and bail
-		if( ! $this->depenencies_present ) {
-			add_action( 'admin_notices', array( $this, 'action_admin_notices' ) );
-			return;
-		}
-
-		// Initialize
-		add_action( 'init', array( $this, 'action_init_register_shortcodes' ) );
-
 	}
 
 	/**
 	 * Here we extract the data from headers set by nginx -- lets only send them if they are part of the cache key
 	 *
-	 * @return [type] [description]
+	 * @since 0.1.0
+	 * @return array All of the GeoIP related environment variables available on the current server instance
 	 */
 	public function get_actuals() {
 		return array(
@@ -105,36 +108,63 @@ class GeoIp {
 	}
 
 	/**
-	 * Examples of easy to use utility functions that we should have for each geo that is part of the cache key
+	 * Get Country
 	 *
-	 * @return mixed Description
+	 * @return string Two-letter country code, e.g.) US for the United States of America
 	 */
 	public function country() {
 		return $this->geos[ 'countrycode' ];
 	}
 
 	/**
-	 * Region
+	 * Get Region
 	 *
-	 * @return mixed Description
+	 * @return string Two-letter region code. e.g.) CA for California
 	 */
 	public function region() {
 		return $this->geos[ 'region' ];
 	}
 
 	/**
+	 * Get City
 	 *
-	 *
-	 * @return mixed Description
+	 * @return string Name of the current city
 	 */
 	public function city() {
 		return $this->geos[ 'city' ];
 	}
 
 	/**
+	 * Get Postal Code
+	 *
+	 * @return string Five digit postal code
+	 */
+	public function postal_code() {
+		return $this->geos[ 'postalcode' ];
+	}
+
+	/**
+	 * Get Latitude
+	 *
+	 * @return string Latitude of the current location
+	 */
+	public function latitude() {
+		return $this->geos[ 'latitude' ];
+	}
+
+	/**
+	 * Get Longitude
+	 *
+	 * @return string Longitude of the current location
+	 */
+	public function longitude() {
+		return $this->geos[ 'longitude' ];
+	}
+
+	/**
 	 * Register the shortcode(s)
 	 *
-	 * @since  1.0.0
+	 * @since  0.5.1
 	 * @uses add_shortcode()
 	 * @return null
 	 */
@@ -155,59 +185,146 @@ class GeoIp {
 			add_shortcode( self::SHORTCODE_CITY, array( $this, 'do_shortcode_city' ) );
 		}
 
+		// Postal Code Shortcode
+		if ( ! shortcode_exists( self::SHORTCODE_POSTAL_CODE ) ) {
+			add_shortcode( self::SHORTCODE_POSTAL_CODE, array( $this, 'do_shortcode_postal_code' ) );
+		}
+		
+		// Latitude Shortcode
+		if ( ! shortcode_exists( self::SHORTCODE_LATITUDE ) ) {
+			add_shortcode( self::SHORTCODE_LATITUDE, array( $this, 'do_shortcode_latitude' ) );
+		}
+		
+		// Longitude Shortcode
+		if ( ! shortcode_exists( self::SHORTCODE_LONGITUDE ) ) {
+			add_shortcode( self::SHORTCODE_LONGITUDE, array( $this, 'do_shortcode_longitude' ) );
+		}
+		
+		// Smart Location Shortcode
+		if ( ! shortcode_exists( self::SHORTCODE_LOCATION ) ) {
+			add_shortcode( self::SHORTCODE_LOCATION, array( $this, 'do_shortcode_location' ) );
+		}
+
 	}
 
 	/**
 	 * Output the current country
 	 *
-	 * @since  1.0.0
-	 * @return string $html
+	 * @since  0.5.1
+	 * @return string Two-letter country code
 	 */
 	function do_shortcode_country( $atts ) {
-		if( isset( $this->geos[ 'country' ] ) ) {
-			echo $this->country();
+		if( isset( $this->geos[ 'countrycode' ] ) ) {
+			return $this->country();
 		}
+		return '[' . self::SHORTCODE_COUNTRY . ']';
 	}
 
 	/**
 	 * Output the current region
 	 *
-	 * @since  1.0.0
-	 * @return string $html
+	 * @since  0.5.1
+	 * @return string Two-letter region code
 	 */
 	function do_shortcode_region( $atts ) {
 		if( isset( $this->geos[ 'region' ] ) ) {
-			echo $this->region();
+			return $this->region();
 		}
+		return '[' . self::SHORTCODE_REGION . ']';
 	}
 
 	/**
 	 * Output the current city
 	 *
-	 * @since  1.0.0
-	 * @return string $html
+	 * @since  0.5.1
+	 * @return string City name
 	 */
 	function do_shortcode_city( $atts ) {
 		if( isset( $this->geos[ 'city' ] ) ) {
-			echo $this->city();
+			return $this->city();
 		}
+		return '[' . self::SHORTCODE_CITY . ']';
+	}
+	
+	/**
+	 * Output the current postal code
+	 *
+	 * @since  0.5.1
+	 * @return string postal code
+	 */
+	function do_shortcode_postal_code( $atts ) {
+		if( isset( $this->geos[ 'postalcode' ] ) ) {
+			return $this->postal_code();
+		}
+		return '[' . self::SHORTCODE_POSTAL_CODE . ']';
 	}
 
+	/**
+	 * Output the current latitude
+	 *
+	 * @since  0.5.1
+	 * @return string latitude
+	 */
+	function do_shortcode_latitude( $atts ) {
+		if( isset( $this->geos[ 'latitude' ] ) ) {
+			return $this->latitude();
+		}
+		return '[' . self::SHORTCODE_LATITUDE . ']';
+	}
 
 	/**
-	 * [action_admin_init_check_plugin_dependencies description]
-	 * @return [type] [description]
+	 * Output the current longitude
+	 *
+	 * @since  0.5.1
+	 * @return string longitude
+	 */
+	function do_shortcode_longitude( $atts ) {
+		if( isset( $this->geos[ 'longitude' ] ) ) {
+			return $this->longitude();
+		}
+		return '[' . self::SHORTCODE_longitude . ']';
+	}
+
+	/**
+	 * Output the current human readable location, in a smart way.
+	 *
+	 * @since  0.5.1
+	 * @return string $html
+	 */
+	function do_shortcode_location( $atts ) {
+
+		$city = $this->city();
+		if( isset( $city ) && ! empty( $city ) ) {
+			return trim( $this->city() . ', ' . $this->region() . ' ' . $this->country() );
+		}
+		//Fallback
+		return trim( $this->region() . ' ' . $this->country() );
+	}
+
+	/**
+	 * Checks if environment variable depencies are available on the server
+	 *
+	 * @since  0.5.1
 	 */
 	public function action_admin_init_check_plugin_dependencies() {
-		if( 1==1 ) {
+		// Check to see if the environment variables are present
+		$is_wpe = getenv( 'HTTP_GEOIP_COUNTRY_CODE' );
+		if( ! isset( $is_wpe ) || empty( $is_wpe ) ) {
 			$this->admin_notices[] = __( 'Please note - this plugin will only function on your <a href="http://wpengine.com/plans/?utm_source=' . self::TEXT_DOMAIN . '">WP Engine account</a>. This will not function outside of the WP Engine environment. Plugin <b>deactivated.</b>', self::TEXT_DOMAIN );
 		}
 
+		// If required plugins are not present, throw an error notice and bail
+		if( ! $this->depenencies_present ) {
+			add_action( 'admin_notices', array( self::instance(), 'action_admin_notices' ) );
+			return;
+		}
+		unset( $is_wpe );
 	}
 
 	/**
-	 * [action_admin_notices description]
-	 * @return [type] [description]
+	 * Displays notice in the admin area if the dependent environment variables are not present
+	 *
+	 * @since  0.5.1
 	 */
 	public function action_admin_notices() {
 		if( 0 < count( $this->admin_notices ) ) {
@@ -226,10 +343,7 @@ class GeoIp {
 		}
 	}
 
-
-
-
 }
 
-// Register to do the stuff
+// Register the GeoIP instance
 GeoIp::init();
