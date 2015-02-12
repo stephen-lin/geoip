@@ -164,7 +164,7 @@ class GeoIp {
 	/**
 	 * Register the shortcode(s)
 	 *
-	 * @since  0.5.1
+	 * @since  0.5.0
 	 * @uses add_shortcode()
 	 * @return null
 	 */
@@ -210,7 +210,7 @@ class GeoIp {
 	/**
 	 * Output the current country
 	 *
-	 * @since  0.5.1
+	 * @since  0.5.0
 	 * @return string Two-letter country code
 	 */
 	function do_shortcode_country( $atts ) {
@@ -223,7 +223,7 @@ class GeoIp {
 	/**
 	 * Output the current region
 	 *
-	 * @since  0.5.1
+	 * @since  0.5.0
 	 * @return string Two-letter region code
 	 */
 	function do_shortcode_region( $atts ) {
@@ -236,7 +236,7 @@ class GeoIp {
 	/**
 	 * Output the current city
 	 *
-	 * @since  0.5.1
+	 * @since  0.5.0
 	 * @return string City name
 	 */
 	function do_shortcode_city( $atts ) {
@@ -288,7 +288,7 @@ class GeoIp {
 	/**
 	 * Output the current human readable location, in a smart way.
 	 *
-	 * @since  0.5.1
+	 * @since  0.5.0
 	 * @return string $html
 	 */
 	function do_shortcode_location( $atts ) {
@@ -304,7 +304,7 @@ class GeoIp {
 	/**
 	 * Checks if environment variable depencies are available on the server
 	 *
-	 * @since  0.5.1
+	 * @since  0.5.0
 	 */
 	public function action_admin_init_check_plugin_dependencies() {
 		// Check to see if the environment variables are present
@@ -324,7 +324,7 @@ class GeoIp {
 	/**
 	 * Displays notice in the admin area if the dependent environment variables are not present
 	 *
-	 * @since  0.5.1
+	 * @since  0.5.0
 	 */
 	public function action_admin_notices() {
 		if( 0 < count( $this->admin_notices ) ) {
