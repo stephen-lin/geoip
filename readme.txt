@@ -42,19 +42,19 @@ This plugin will only function on your [WP Engine](http://wpengine.com/plans/?ut
 
 == How To Use The Shortcode ==
 
-1) Country - [geoip-country]
+1) Country: [geoip-country]
 
-2) Region (State) - [geoip-region]
+2) Region (State): [geoip-region]
 
-3) City - [geoip-city]
+3) City: [geoip-city]
 
-4) Postal Code - [geoip-postalcode]
+4) Postal Code: [geoip-postalcode]
 
-5) Latitude - [geoip-latitude]
+5) Latitude: [geoip-latitude]
 
-6) Longitutde - [geoip-longitude]
+6) Longitutde: [geoip-longitude]
 
-7) Location - [geoip-location]
+7) Location: [geoip-location]
 
 == Frequently Asked Questions ==
 
